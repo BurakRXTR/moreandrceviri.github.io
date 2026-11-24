@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cipher Çeviri | Türkçe Yama</title>
+  <meta name="description" content="Cipher Çeviri: oyunlar için emekle hazırlanan Türkçe yamalar.">
+  <link rel="icon" href="site.ico" sizes="any">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg: #14132b;
+  --bg-soft: #1b1a3a;
+  --line: #2f2d5c;
+  --text: #ecebfa;
+  --muted: #a9a7cf;
+  --accent: #8f82ff;
+  --accent-soft: rgba(143, 130, 255, .16);
+  --radius: 14px;
+  --maxw: 1160px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Manrope", system-ui, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* ---------- Üst bölüm ---------- */
+.site-header {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0 6px;
+}
+.brand { display: inline-flex; align-items: center; gap: 12px; }
+.brand-logo { height: 46px; width: auto; }
+.brand-name {
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: .2px;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 6px auto 0;
+  padding: 6px;
+  width: fit-content;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+.menu a {
+  padding: 9px 22px;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: .95rem;
+  color: var(--muted);
+  transition: background .2s, color .2s;
+}
+.menu a:hover { color: var(--text); }
+.menu a.active { background: var(--accent); color: #14132b; font-weight: 600; }
+
+.burger { display: none; }
+
+/* ---------- Hakkımızda ---------- */
+main { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 56px;
+  align-items: center;
+  padding: 64px 0 40px;
+}
+.about-image img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  box-shadow: 14px 14px 0 var(--accent-soft);
+}
+.about-text h1 {
+  font-family: "Sora", sans-serif;
+  font-size: clamp(2rem, 3.4vw, 2.9rem);
+  line-height: 1.15;
+  margin: 0 0 14px;
+}
+.about-lead {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 1.08rem;
+  max-width: 46ch;
+}
+
+.scroll-box {
+  max-height: 290px;
+  overflow-y: auto;
+  padding: 4px 18px 4px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+.scroll-box p { margin: 14px 0; color: #d6d4ef; }
+.scroll-box::-webkit-scrollbar { width: 6px; }
+.scroll-box::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 6px; }
+
+/* ---------- Karşılaştırma ---------- */
+.compare { padding: 56px 0 24px; }
+.compare h2,
+.why h2 {
+  font-family: "Sora", sans-serif;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  margin: 0 0 28px;
+  text-align: center;
+}
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.compare figure { margin: 0; }
+.compare figcaption {
+  font-family: "Sora", sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+.compare figure:first-child figcaption { color: var(--muted); }
+.compare img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+}
+.compare figure:last-child img { border-color: var(--accent); }
+
+/* Geçici görsel yer tutucu (resim bulunamazsa) */
+.img-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px dashed var(--line);
+  background: var(--bg-soft);
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* ---------- Sayaçlar ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 24px;
+}
+.stat { padding: 2px 0; }
+.stat + .stat { border-left: 1px solid var(--line); padding-left: 24px; }
+.stat strong {
+  display: block;
+  font-family: "Sora", sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1.15;
+  color: var(--accent);
+}
+.stat span { color: var(--muted); font-size: 1rem; }
+
+/* ---------- Neden Cipher Çeviri ---------- */
+.why { padding: 48px 0 8px; }
+.carousel-wrap { position: relative; }
+.carousel {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 14px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+.carousel::-webkit-scrollbar { height: 6px; }
+.carousel::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 6px; }
+.carousel img,
+.carousel .img-placeholder {
+  flex: 0 0 min(420px, 78%);
+  width: min(420px, 78%);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+  scroll-snap-align: start;
+}
+.car-btn {
+  position: absolute;
+  top: calc(50% - 14px);
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(20, 19, 43, .85);
+  color: var(--text);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+  transition: background .2s, color .2s;
+}
+.car-btn:hover { background: var(--accent); color: #14132b; }
+.car-btn.prev { left: 10px; }
+.car-btn.next { right: 10px; }
+
+/* ---------- Alt bilgi ---------- */
+.site-footer {
+  text-align: center;
+  padding: 28px 24px 36px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .92rem;
+}
+.site-footer p { margin: 2px 0; }
+.site-footer p:first-child { color: var(--text); font-weight: 500; }
+.site-footer .legal { max-width: 640px; margin: 6px auto 0; font-size: .85rem; }
+
+/* ---------- Mobil ---------- */
+@media (max-width: 820px) {
+  .site-header { padding: 0 18px; position: relative; }
+  .brand-logo { height: 40px; }
+  .brand-name { font-size: 1.1rem; }
+
+  .burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px; height: 44px;
+    padding: 0 11px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .burger span {
+    display: block;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform .25s, opacity .2s;
+  }
+  .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    margin: 8px 0 0;
+    padding: 8px;
+    border-radius: var(--radius);
+  }
+  .menu.open { display: flex; }
+  .menu a { padding: 13px 16px; border-radius: 10px; }
+
+  main { padding: 0 18px; }
+  .about { grid-template-columns: 1fr; gap: 28px; padding: 32px 0 20px; }
+  .about-image { max-width: 380px; }
+  .about-image img { box-shadow: 8px 8px 0 var(--accent-soft); }
+  .scroll-box { max-height: 260px; }
+
+  .compare-grid { grid-template-columns: 1fr; gap: 24px; }
+  .car-btn { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="topbar">
+      <a class="brand" href="index.html" aria-label="Cipher Çeviri ana sayfa">
+        <img src="logo.webp" alt="Cipher Çeviri logosu" class="brand-logo">
+        <span class="brand-name">Cipher Çeviri</span>
+      </a>
+      <button class="burger" id="burger" aria-label="Menüyü aç" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="menu" id="menu" aria-label="Ana menü">
+      <a href="index.html" class="active" aria-current="page">Ana Sayfa</a>
+      <a href="yamalar.html">Türkçe Yamalar</a>
+      <a href="destek.html">Destek &amp; İletişim</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="about">
+      <div class="about-image">
+        <img src="cipher.webp" alt="Cipher Çeviri">
+      </div>
+
+      <div class="about-text">
+        <h1>Cipher Çeviri Kimdir?</h1>
+        <p class="about-lead">Oyunların Türkçesini, oynayan biri gibi düşünerek hazırlıyoruz.</p>
+
+        <div class="scroll-box" tabindex="0" aria-label="Cipher Çeviri hakkında kaydırılabilir metin">
+          <p>Cipher Çeviri, oyunları Türkçe oynamak isteyenler için kurulmuş bağımsız bir çeviri ekibidir.</p>
+          <p>Kelimeleri tek tek çevirmek yerine cümlenin oyundaki havasını yakalamaya çalışırız.</p>
+          <p>Her yama yayınlanmadan önce oyunun içinde baştan sona denenir.</p>
+          <p>Makine çevirisine güvenmeyiz; her satır insan gözüyle okunup düzeltilir.</p>
+          <p>Yamalarımız ücretsizdir ve kurulumu kolaydır.</p>
+          <p>Hata bildirimleriniz ve oyun önerileriniz bizim için değerlidir.</p>
+        </div>
+
+        <div class="stats" aria-label="Rakamlarla Cipher Çeviri">
+          <div class="stat">
+            <strong class="count" data-target="1250000">0</strong>
+            <span>kelime çevrildi</span>
+          </div>
+          <div class="stat">
+            <strong class="count" data-target="24">0</strong>
+            <span>yama yapıldı</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="why">
+      <h2>Neden Cipher Çeviri Seçmeliyim?</h2>
+      <div class="carousel-wrap">
+        <button class="car-btn prev" type="button" aria-label="Önceki görsel">&#8249;</button>
+        <div class="carousel" id="carousel" tabindex="0" aria-label="Kaydırılabilir görseller">
+          <img src="https://picsum.photos/seed/cipher1/700/500" alt="Görsel 1" loading="lazy" data-placeholder="Görsel 1">
+          <img src="https://picsum.photos/seed/cipher2/700/500" alt="Görsel 2" loading="lazy" data-placeholder="Görsel 2">
+          <img src="https://picsum.photos/seed/cipher3/700/500" alt="Görsel 3" loading="lazy" data-placeholder="Görsel 3">
+          <img src="https://picsum.photos/seed/cipher4/700/500" alt="Görsel 4" loading="lazy" data-placeholder="Görsel 4">
+          <img src="https://picsum.photos/seed/cipher5/700/500" alt="Görsel 5" loading="lazy" data-placeholder="Görsel 5">
+        </div>
+        <button class="car-btn next" type="button" aria-label="Sonraki görsel">&#8250;</button>
+      </div>
+    </section>
+
+    <section class="compare">
+      <h2>Çeviri Farkı</h2>
+      <div class="compare-grid">
+        <figure>
+          <figcaption>Başka Çeviri / Yapay Zeka</figcaption>
+          <img src="images/baska-ceviri.webp" alt="Başka çeviri veya yapay zeka çevirisi örneği" data-placeholder="Başka çeviri / yapay zeka görseli">
+        </figure>
+        <figure>
+          <figcaption>Cipher Çeviri Çevirisi</figcaption>
+          <img src="images/cipher-ceviri.webp" alt="Cipher Çeviri çevirisi örneği" data-placeholder="Cipher Çeviri görseli">
+        </figure>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Cipher Çeviri. Tüm hakları saklıdır.</p>
+    <p class="legal">Oyunların telif hakları ilgili oyun şirketlerine aittir. Çeviriler tamamen gönüllü olarak hazırlanmıştır.</p>
+  </footer>
+
+  <script>
+// Mobil hamburger menü
+const burger = document.getElementById('burger');
+const menu = document.getElementById('menu');
+
+burger.addEventListener('click', () => {
+  const open = menu.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+  burger.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
+});
+
+menu.querySelectorAll('a').forEach(link =>
+  link.addEventListener('click', () => {
+    menu.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  })
+);
+
+// Karşılaştırma görselleri bulunamazsa geçici kutu göster
+document.querySelectorAll('img[data-placeholder]').forEach(img => {
+  img.addEventListener('error', () => {
+    const box = document.createElement('div');
+    box.className = 'img-placeholder';
+    box.textContent = img.dataset.placeholder + ' (geçici)';
+    img.replaceWith(box);
+  });
+});
+
+// Sayaçlar: ekrana gelince bir kez sayar
+const counters = document.querySelectorAll('.count');
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fmt = n => n.toLocaleString('tr-TR');
+
+function run(el) {
+  const target = Number(el.dataset.target);
+  if (reduce) { el.textContent = fmt(target); return; }
+  const duration = 1600;
+  const start = performance.now();
+  const step = now => {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = fmt(Math.round(target * eased));
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { run(e.target); io.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => io.observe(c));
+
+// Görsel kaydırıcı okları (masaüstü)
+const car = document.getElementById('carousel');
+document.querySelector('.car-btn.prev').addEventListener('click', () => car.scrollBy({ left: -440, behavior: 'smooth' }));
+document.querySelector('.car-btn.next').addEventListener('click', () => car.scrollBy({ left: 440, behavior: 'smooth' }));
+  </script>
+</body>
+</html>
